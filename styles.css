@@ -1052,7 +1052,7 @@ meter {
   .practice-panel {
     display: grid;
     grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: 44px 44px minmax(0, 1fr);
     gap: 6px 10px;
     padding: 10px;
     min-height: 0;
@@ -1109,6 +1109,7 @@ meter {
   .kanji-stage {
     grid-column: 1;
     grid-row: 3;
+    height: 100%;
     grid-template-columns: 38px minmax(0, 1fr) 38px;
     gap: 8px;
     margin: 0;
@@ -1124,6 +1125,7 @@ meter {
   .kanji-card {
     min-height: 0;
     height: 100%;
+    max-height: calc(100dvh - 136px);
     padding: 8px;
     border-radius: 20px;
   }
@@ -1144,6 +1146,7 @@ meter {
   .mode-tabs {
     grid-column: 2;
     grid-row: 1;
+    height: 44px;
     padding: 5px;
   }
 
@@ -1154,6 +1157,7 @@ meter {
   .mode-view {
     grid-column: 2;
     grid-row: 3;
+    height: 100%;
     min-height: 0;
     margin-top: 0;
     padding-bottom: 0;
@@ -1163,31 +1167,37 @@ meter {
 
   #traceView {
     display: none;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px;
   }
 
   #traceView.active {
-    display: contents;
+    display: grid;
   }
 
   #traceView .stroke-guide {
-    grid-column: 1;
-    grid-row: 4;
-    align-self: end;
+    display: none;
   }
 
   #traceView .trace-wrap {
-    grid-column: 2;
-    grid-row: 3;
+    grid-column: 1;
+    grid-row: 1;
   }
 
   #traceView .trace-actions {
-    grid-column: 2;
-    grid-row: 4;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .trace-wrap #traceCanvas,
   #traceCanvas {
-    height: min(47vh, 318px);
+    height: 100%;
+    min-height: 260px;
+  }
+
+  .trace-wrap {
+    min-height: 0;
   }
 
   .stroke-guide {
@@ -1334,3 +1344,4 @@ meter {
     grid-template-columns: 1fr;
   }
 }
+    height: 100%;
