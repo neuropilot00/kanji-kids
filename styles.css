@@ -1030,22 +1030,22 @@ meter {
   .app-shell {
     width: min(1360px, 100%);
     height: 100dvh;
-    padding: max(8px, env(safe-area-inset-top)) 10px 10px 92px;
+    padding: max(6px, env(safe-area-inset-top)) 10px 10px 92px;
     overflow: hidden;
   }
 
   .topbar {
-    display: none;
+    min-height: 42px;
   }
 
   h1 {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
   }
 
   .main-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    height: calc(100dvh - 20px);
+    height: calc(100dvh - 58px);
     min-height: 0;
   }
 
@@ -1066,29 +1066,49 @@ meter {
   }
 
   .lesson-header {
+    display: flex;
+    min-height: 0;
+  }
+
+  .lesson-header h2,
+  .streak {
     display: none;
+  }
+
+  .lesson-header .eyebrow {
+    margin-bottom: 0;
+    font-size: 0.72rem;
   }
 
   .search-box {
-    display: none;
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    margin-top: 0;
+    padding: 0 10px;
   }
 
   .search-box input {
-    height: 42px;
+    height: 38px;
+    font-size: 0.88rem;
   }
 
   .quick-actions {
-    display: none;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
     margin-top: 0;
   }
 
   .quick-actions button {
-    min-height: 42px;
+    min-height: 38px;
+    border-radius: 14px;
+    font-size: 0.9rem;
   }
 
   .kanji-stage {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     grid-template-columns: 38px minmax(0, 1fr) 38px;
     gap: 8px;
     margin: 0;
@@ -1133,7 +1153,7 @@ meter {
 
   .mode-view {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
     min-height: 0;
     margin-top: 0;
     padding-bottom: 0;
@@ -1151,18 +1171,18 @@ meter {
 
   #traceView .stroke-guide {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 4;
     align-self: end;
   }
 
   #traceView .trace-wrap {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   #traceView .trace-actions {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
   }
 
   .trace-wrap #traceCanvas,
