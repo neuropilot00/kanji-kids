@@ -1018,6 +1018,137 @@ meter {
   }
 }
 
+@media (orientation: landscape) and (min-width: 900px) {
+  .app-shell {
+    width: min(1360px, 100%);
+    padding: max(14px, env(safe-area-inset-top)) 18px 18px 112px;
+  }
+
+  .topbar {
+    min-height: 56px;
+  }
+
+  .main-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 14px;
+  }
+
+  .practice-panel {
+    display: grid;
+    grid-template-columns: minmax(330px, 0.95fr) minmax(340px, 1fr);
+    gap: 12px 16px;
+    padding: 16px;
+  }
+
+  .lesson-header,
+  .search-box,
+  .quick-actions {
+    grid-column: 1 / -1;
+  }
+
+  .kanji-stage {
+    grid-column: 1;
+    grid-row: 4 / span 3;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .stage-button {
+    width: 44px;
+    height: 64px;
+  }
+
+  .kanji-card {
+    min-height: min(48vh, 330px);
+    padding: 18px;
+  }
+
+  .kanji-art {
+    font-size: clamp(5.6rem, 13vw, 9.6rem);
+  }
+
+  .mode-tabs,
+  .mode-view {
+    grid-column: 2;
+  }
+
+  .mode-tabs {
+    align-self: start;
+  }
+
+  .mode-view {
+    margin-top: 0;
+  }
+
+  .trace-wrap #traceCanvas,
+  #traceCanvas {
+    height: min(31vh, 250px);
+  }
+
+  .stroke-guide {
+    padding: 12px;
+  }
+
+  .stroke-guide-body {
+    align-items: stretch;
+  }
+
+  #strokeGuideImage {
+    width: min(128px, 16vw);
+  }
+
+  .quiz-options button {
+    min-height: 70px;
+  }
+
+  .side-panel {
+    max-height: calc(100vh - 92px);
+    overflow: auto;
+  }
+
+  .side-panel > section {
+    padding: 14px;
+  }
+
+  .progress-band {
+    grid-template-columns: 1fr 84px;
+  }
+
+  .tree-visual {
+    width: 84px;
+    height: 84px;
+  }
+
+  .kanji-list-section {
+    max-height: 300px;
+  }
+
+  .kanji-list {
+    max-height: 214px;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  }
+
+  .bottom-nav {
+    top: max(86px, env(safe-area-inset-top));
+    right: auto;
+    bottom: auto;
+    left: max(12px, env(safe-area-inset-left));
+    grid-template-columns: 1fr;
+    width: 82px;
+    padding: 7px;
+  }
+
+  .bottom-nav button {
+    min-height: 72px;
+  }
+
+  .toast {
+    right: 18px;
+    bottom: 18px;
+  }
+}
+
 @media (max-width: 560px) {
   .app-shell {
     padding-inline: 10px;
