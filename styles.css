@@ -1117,6 +1117,10 @@ meter {
     min-height: 0;
   }
 
+  body[data-mode="trace"] .kanji-stage {
+    display: none;
+  }
+
   .stage-button {
     width: 38px;
     height: 54px;
@@ -1176,10 +1180,19 @@ meter {
   #traceView .stroke-guide {
     display: grid;
     grid-column: 1;
-    grid-row: 4;
+    grid-row: 3 / span 2;
     align-self: stretch;
-    max-height: 148px;
+    max-height: none;
     overflow: hidden;
+  }
+
+  #traceView .stroke-guide-head {
+    align-items: flex-start;
+  }
+
+  #traceView .stroke-guide-body {
+    grid-template-columns: 1fr;
+    place-items: center;
   }
 
   #traceView .trace-wrap {
@@ -1221,7 +1234,7 @@ meter {
   }
 
   #strokeGuideImage {
-    width: min(112px, 14vw);
+    width: min(230px, 26vw);
     padding: 6px;
     border-radius: 14px;
   }
@@ -1235,9 +1248,9 @@ meter {
   }
 
   .stroke-rules {
-    gap: 2px;
-    font-size: 0.7rem;
-    line-height: 1.18;
+    gap: 6px;
+    font-size: clamp(0.82rem, 1.25vw, 1rem);
+    line-height: 1.28;
   }
 
   .quiz-options button {

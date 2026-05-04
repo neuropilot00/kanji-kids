@@ -425,6 +425,7 @@ function searchKanji(query) {
 }
 
 function switchMode(mode) {
+  document.body.dataset.mode = mode;
   document.querySelectorAll(".mode-tab").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.mode === mode);
   });
@@ -713,6 +714,7 @@ if ("serviceWorker" in navigator) {
 }
 
 elements.profileButton.textContent = profile.name.slice(0, 1);
+document.body.dataset.mode = "learn";
 renderGrades();
 renderBookGrades();
 renderPlans();
