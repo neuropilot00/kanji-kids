@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f8fbf7" />
+    <title>かんじの森</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="icon-button" id="menuButton" type="button" aria-label="メニュー">
+          <span class="icon-bars" aria-hidden="true"></span>
+        </button>
+        <div>
+          <p class="eyebrow"><ruby>小学<rt>しょうがく</rt></ruby><ruby>漢字<rt>かんじ</rt></ruby>・<ruby>毎日<rt>まいにち</rt></ruby>10<ruby>分<rt>ぷん</rt></ruby></p>
+          <h1>かんじの<ruby>森<rt>もり</rt></ruby></h1>
+        </div>
+        <button class="avatar-button" id="profileButton" type="button" aria-label="プロフィール">ゆ</button>
+      </header>
+
+      <main class="main-grid screen active" id="practiceScreen">
+        <section class="practice-panel" aria-labelledby="today-title">
+          <div class="lesson-header">
+            <div>
+              <p class="eyebrow"><ruby>小学<rt>しょうがく</rt></ruby>1〜6<ruby>年<rt>ねん</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby> 1026<ruby>字<rt>じ</rt></ruby></p>
+              <h2 id="today-title"><ruby>見<rt>み</rt></ruby>る・<ruby>読<rt>よ</rt></ruby>む・<ruby>書<rt>か</rt></ruby>く</h2>
+            </div>
+            <div class="streak" aria-label="連続学習日数">
+              <span id="currentNumber">1</span>
+              <small id="totalNumber">/1026</small>
+            </div>
+          </div>
+
+          <label class="search-box" for="kanjiSearch">
+            <span aria-hidden="true"></span>
+            <input id="kanjiSearch" type="search" placeholder="かんじ・よみでさがす" autocomplete="off" />
+          </label>
+
+          <div class="quick-actions" aria-label="すぐ始める">
+            <button id="dailyButton" type="button"><ruby>今日<rt>きょう</rt></ruby>の10<ruby>問<rt>もん</rt></ruby></button>
+            <button id="reviewButton" type="button">にがて<ruby>復習<rt>ふくしゅう</rt></ruby></button>
+            <button id="randomButton" type="button">ランダム</button>
+          </div>
+
+          <div class="kanji-stage">
+            <button class="stage-button" id="prevKanji" type="button" aria-label="前の漢字">‹</button>
+            <article class="kanji-card" aria-live="polite">
+              <div class="kanji-art" id="kanjiGlyph"><ruby>森<rt>もり</rt></ruby></div>
+              <div class="kanji-meta">
+                <span id="gradeBadge">小2</span>
+                <span id="strokeBadge">12画</span>
+              </div>
+              <h3 id="kanjiMeaning">もり</h3>
+              <p id="kanjiReading">シン・もり</p>
+            </article>
+            <button class="stage-button" id="nextKanji" type="button" aria-label="次の漢字">›</button>
+          </div>
+
+          <div class="mode-tabs" role="tablist" aria-label="学習モード">
+            <button class="mode-tab active" data-mode="learn" type="button"><ruby>見<rt>み</rt></ruby>る</button>
+            <button class="mode-tab" data-mode="trace" type="button"><ruby>書<rt>か</rt></ruby>く</button>
+            <button class="mode-tab" data-mode="quiz" type="button"><ruby>答<rt>こた</rt></ruby>える</button>
+          </div>
+
+          <div class="mode-view active" id="learnView">
+            <div class="sentence-box">
+              <span class="sentence-label"><ruby>読<rt>よ</rt></ruby>み</span>
+              <p id="exampleSentence">シン・もり</p>
+            </div>
+            <button class="primary-action" id="knowButton" type="button">おぼえた</button>
+          </div>
+
+          <div class="mode-view" id="traceView">
+            <div class="trace-wrap">
+              <canvas id="traceCanvas" width="520" height="360" aria-label="漢字を書く練習"></canvas>
+              <div class="trace-ghost" id="traceGhost">森</div>
+            </div>
+            <div class="trace-actions">
+              <button class="secondary-action" id="clearCanvas" type="button">けす</button>
+              <button class="primary-action" id="finishTrace" type="button">できた</button>
+            </div>
+          </div>
+
+          <div class="mode-view" id="quizView">
+            <p class="quiz-question" id="quizQuestion">「もり」と読む漢字はどれ？</p>
+            <div class="quiz-options" id="quizOptions"></div>
+            <button class="primary-action quiz-next" id="nextQuiz" type="button">つぎへ</button>
+          </div>
+        </section>
+
+        <aside class="side-panel" aria-label="学習状況">
+          <section class="progress-band">
+            <div>
+              <p class="eyebrow">おぼえた<ruby>漢字<rt>かんじ</rt></ruby></p>
+              <h2><span id="masteredCount">0</span>/1026</h2>
+            </div>
+            <svg class="tree-visual" viewBox="0 0 160 160" role="img" aria-label="学習の木">
+              <circle cx="80" cy="80" r="72" fill="#e6f4df" />
+              <path d="M82 120c20-18 38-38 38-62 0-18-12-32-31-32-12 0-22 6-29 17-5-6-12-9-21-9-17 0-29 13-29 30 0 30 31 48 72 56z" fill="#68b984" />
+              <path d="M78 82c-11-15-15-30-6-44 13 8 22 22 24 39 9-8 19-12 31-10-7 18-24 29-44 35v33H68v-30c-20-5-35-15-43-31 18-3 35 1 53 8z" fill="#2f6f5e" />
+            </svg>
+          </section>
+
+          <section class="grade-section">
+            <div class="section-title">
+              <h2><ruby>学年<rt>がくねん</rt></ruby></h2>
+              <span id="gradeSummary">1年 80字</span>
+            </div>
+            <div class="grade-grid" id="gradeGrid"></div>
+          </section>
+
+          <section class="kanji-list-section">
+            <div class="section-title">
+              <h2><ruby>漢字<rt>かんじ</rt></ruby><ruby>一覧<rt>いちらん</rt></ruby></h2>
+              <span id="listSummary">80字</span>
+            </div>
+            <div class="kanji-list" id="kanjiList"></div>
+          </section>
+
+          <section class="mini-report">
+            <div class="section-title">
+              <h2><ruby>先生<rt>せんせい</rt></ruby>メモ</h2>
+              <span><ruby>学習量<rt>がくしゅうりょう</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</span>
+            </div>
+            <div class="report-list">
+              <div>
+                <strong><ruby>読<rt>よ</rt></ruby>み</strong>
+                <meter min="0" max="100" value="72"></meter>
+              </div>
+              <div>
+                <strong><ruby>書<rt>か</rt></ruby>き<ruby>順<rt>じゅん</rt></ruby></strong>
+                <meter min="0" max="100" value="54"></meter>
+              </div>
+              <div>
+                <strong><ruby>意味<rt>いみ</rt></ruby></strong>
+                <meter min="0" max="100" value="86"></meter>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </main>
+
+      <main class="screen" id="bookScreen">
+        <section class="wide-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">ぜんぶで1026<ruby>字<rt>じ</rt></ruby></p>
+              <h2><ruby>漢字<rt>かんじ</rt></ruby>ずかん</h2>
+            </div>
+            <span id="bookCount">1年 80字</span>
+          </div>
+          <div class="book-controls">
+            <div class="grade-grid compact" id="bookGradeGrid"></div>
+            <label class="search-box book-search" for="bookSearch">
+              <span aria-hidden="true"></span>
+              <input id="bookSearch" type="search" placeholder="ずかんでさがす" autocomplete="off" />
+            </label>
+          </div>
+          <div class="book-grid" id="bookGrid"></div>
+        </section>
+
+        <section class="wide-panel plan-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">1<ruby>年生<rt>ねんせい</rt></ruby>にもわかる</p>
+              <h2>6<ruby>年間<rt>ねんかん</rt></ruby>の<ruby>学習<rt>がくしゅう</rt></ruby>ルート</h2>
+            </div>
+            <span><ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>き・<ruby>使<rt>つか</rt></ruby>う</span>
+          </div>
+          <div class="plan-grid" id="planGrid"></div>
+        </section>
+      </main>
+
+      <main class="screen" id="recordScreen">
+        <section class="wide-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">がんばりを<ruby>見<rt>み</rt></ruby>える<ruby>化<rt>か</rt></ruby></p>
+              <h2>きろく</h2>
+            </div>
+            <span id="recordTotal">0/1026</span>
+          </div>
+          <div class="record-grid" id="recordGrid"></div>
+        </section>
+
+        <section class="wide-panel teacher-plan">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow"><ruby>家庭<rt>かてい</rt></ruby>・<ruby>先生<rt>せんせい</rt></ruby><ruby>向<rt>む</rt></ruby>け</p>
+              <h2><ruby>追加<rt>ついか</rt></ruby>する<ruby>学習<rt>がくしゅう</rt></ruby><ruby>内容<rt>ないよう</rt></ruby></h2>
+            </div>
+            <span><ruby>開発済<rt>かいはつず</rt></ruby>み<ruby>画面<rt>がめん</rt></ruby></span>
+          </div>
+          <div class="content-roadmap">
+            <article>
+              <strong><ruby>毎日<rt>まいにち</rt></ruby>10<ruby>問<rt>もん</rt></ruby></strong>
+              <p><ruby>未習<rt>みしゅう</rt></ruby>・<ruby>復習<rt>ふくしゅう</rt></ruby>・ランダムをまぜて、<ruby>短<rt>みじか</rt></ruby>い<ruby>時間<rt>じかん</rt></ruby>で<ruby>読<rt>よ</rt></ruby>みを<ruby>確認<rt>かくにん</rt></ruby>します。</p>
+            </article>
+            <article>
+              <strong><ruby>書<rt>か</rt></ruby>く<ruby>練習<rt>れんしゅう</rt></ruby></strong>
+              <p><ruby>薄<rt>うす</rt></ruby>い<ruby>手本<rt>てほん</rt></ruby>の<ruby>上<rt>うえ</rt></ruby>を<ruby>指<rt>ゆび</rt></ruby>やペンでなぞり、できた<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>記録<rt>きろく</rt></ruby>します。</p>
+            </article>
+            <article>
+              <strong><ruby>漢字<rt>かんじ</rt></ruby>ずかん</strong>
+              <p>1〜6<ruby>年<rt>ねん</rt></ruby>の1026<ruby>字<rt>じ</rt></ruby>を<ruby>学年<rt>がくねん</rt></ruby>ごとに<ruby>見<rt>み</rt></ruby>て、すぐ<ruby>練習<rt>れんしゅう</rt></ruby>できます。</p>
+            </article>
+            <article>
+              <strong><ruby>先生<rt>せんせい</rt></ruby>メモ</strong>
+              <p><ruby>学年<rt>がくねん</rt></ruby>ごとの<ruby>達成率<rt>たっせいりつ</rt></ruby>を<ruby>見<rt>み</rt></ruby>て、<ruby>次<rt>つぎ</rt></ruby>に<ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>学年<rt>がくねん</rt></ruby>を<ruby>選<rt>えら</rt></ruby>べます。</p>
+            </article>
+          </div>
+          <button class="danger-action" id="resetProgress" type="button">きろくをリセット</button>
+        </section>
+      </main>
+
+      <div class="overlay" id="overlay" hidden></div>
+      <aside class="drawer" id="drawer" aria-hidden="true" aria-label="メニュー">
+        <div class="drawer-head">
+          <div>
+            <p class="eyebrow">かんじの<ruby>森<rt>もり</rt></ruby></p>
+            <h2>メニュー</h2>
+          </div>
+          <button class="small-icon-button" id="closeMenu" type="button" aria-label="閉じる">×</button>
+        </div>
+        <button class="drawer-action" data-action="daily" type="button"><ruby>今日<rt>きょう</rt></ruby>の10<ruby>問<rt>もん</rt></ruby>を<ruby>始<rt>はじ</rt></ruby>める</button>
+        <button class="drawer-action" data-action="review" type="button">おぼえていない<ruby>漢字<rt>かんじ</rt></ruby></button>
+        <button class="drawer-action" data-action="book" type="button"><ruby>漢字<rt>かんじ</rt></ruby>ずかんを<ruby>見<rt>み</rt></ruby>る</button>
+        <button class="drawer-action" data-action="record" type="button">きろくを<ruby>見<rt>み</rt></ruby>る</button>
+      </aside>
+
+      <dialog class="profile-dialog" id="profileDialog">
+        <form method="dialog">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">プロフィール</p>
+              <h2><ruby>学習者<rt>がくしゅうしゃ</rt></ruby><ruby>設定<rt>せってい</rt></ruby></h2>
+            </div>
+            <button class="small-icon-button" value="cancel" type="submit" aria-label="閉じる">×</button>
+          </div>
+          <label class="field-label">
+            なまえ
+            <input id="studentName" type="text" maxlength="8" value="ゆい" />
+          </label>
+          <label class="toggle-row">
+            ほめことばを<ruby>表示<rt>ひょうじ</rt></ruby>
+            <input id="praiseToggle" type="checkbox" checked />
+          </label>
+          <button class="primary-action" id="saveProfile" value="default" type="submit"><ruby>保存<rt>ほぞん</rt></ruby></button>
+        </form>
+      </dialog>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <nav class="bottom-nav" aria-label="主な画面">
+        <button class="active" data-screen="practice" type="button">
+          <span class="nav-home" aria-hidden="true"></span>
+          れんしゅう
+        </button>
+        <button data-screen="book" type="button">
+          <span class="nav-book" aria-hidden="true"></span>
+          ずかん
+        </button>
+        <button data-screen="record" type="button">
+          <span class="nav-chart" aria-hidden="true"></span>
+          きろく
+        </button>
+      </nav>
+    </div>
+
+    <script src="./kanji-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

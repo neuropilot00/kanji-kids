@@ -1,0 +1,11 @@
+{
+  "name": "かんじの森",
+  "short_name": "かんじ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fbf7",
+  "theme_color": "#f8fbf7",
+  "lang": "ja",
+  "orientation": "portrait-primary",
+  "icons": []
+}
