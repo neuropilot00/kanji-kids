@@ -1052,7 +1052,7 @@ meter {
   .practice-panel {
     display: grid;
     grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
-    grid-template-rows: 44px 44px minmax(0, 1fr);
+    grid-template-rows: 44px 44px minmax(0, 1fr) auto;
     gap: 6px 10px;
     padding: 10px;
     min-height: 0;
@@ -1109,7 +1109,8 @@ meter {
   .kanji-stage {
     grid-column: 1;
     grid-row: 3;
-    height: 100%;
+    align-self: center;
+    height: clamp(300px, 46vh, 390px);
     grid-template-columns: 38px minmax(0, 1fr) 38px;
     gap: 8px;
     margin: 0;
@@ -1125,7 +1126,6 @@ meter {
   .kanji-card {
     min-height: 0;
     height: 100%;
-    max-height: calc(100dvh - 136px);
     padding: 8px;
     border-radius: 20px;
   }
@@ -1167,27 +1167,29 @@ meter {
 
   #traceView {
     display: none;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 8px;
   }
 
   #traceView.active {
-    display: grid;
+    display: contents;
   }
 
   #traceView .stroke-guide {
-    display: none;
+    display: grid;
+    grid-column: 1;
+    grid-row: 4;
+    align-self: stretch;
+    max-height: 148px;
+    overflow: hidden;
   }
 
   #traceView .trace-wrap {
-    grid-column: 1;
-    grid-row: 1;
+    grid-column: 2;
+    grid-row: 3;
   }
 
   #traceView .trace-actions {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column: 2;
+    grid-row: 4;
   }
 
   .trace-wrap #traceCanvas,
@@ -1219,7 +1221,7 @@ meter {
   }
 
   #strokeGuideImage {
-    width: min(150px, 18vw);
+    width: min(112px, 14vw);
     padding: 6px;
     border-radius: 14px;
   }
@@ -1234,8 +1236,8 @@ meter {
 
   .stroke-rules {
     gap: 2px;
-    font-size: 0.74rem;
-    line-height: 1.22;
+    font-size: 0.7rem;
+    line-height: 1.18;
   }
 
   .quiz-options button {
