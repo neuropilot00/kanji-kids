@@ -160,6 +160,8 @@ let quizAnswered = 0;
 let mastered = new Set(JSON.parse(localStorage.getItem("kanji-mastered") || "[]"));
 let drawing = false;
 let toastTimer = 0;
+let quizAdvanceTimer = 0;
+let studyFlow = "grade";
 let profile = JSON.parse(localStorage.getItem("kanji-profile") || '{"name":"ゆい","praise":true}');
 
 function currentKanji() {
@@ -332,6 +334,7 @@ function renderQuiz() {
 }
 
 function answerQuiz(button, isCorrect, correctAnswer) {
+  clearQuizAdvanceTimer();
   [...elements.quizOptions.children].forEach((option) => {
     option.disabled = true;
     if (option.dataset.answer === correctAnswer) option.classList.add("correct");
@@ -347,11 +350,39 @@ function answerQuiz(button, isCorrect, correctAnswer) {
   }
   elements.quizScore.textContent = `${quizCorrect}/${quizAnswered}`;
   elements.nextQuiz.classList.add("active");
+  quizAdvanceTimer = setTimeout(nextQuizItem, 650);
 }
 
 function changeKanji(direction) {
+  clearQuizAdvanceTimer();
   currentIndex = (currentIndex + direction + visibleKanji.length) % visibleKanji.length;
   renderKanji();
+}
+
+function clearQuizAdvanceTimer() {
+  clearTimeout(quizAdvanceTimer);
+  quizAdvanceTimer = 0;
+}
+
+function nextRandomIndex() {
+  if (visibleKanji.length <= 1) return 0;
+  let nextIndex = currentIndex;
+  while (nextIndex === currentIndex) {
+    nextIndex = Math.floor(Math.random() * visibleKanji.length);
+  }
+  return nextIndex;
+}
+
+function advanceAfterDone() {
+  clearQuizAdvanceTimer();
+  currentIndex = studyFlow === "random" ? nextRandomIndex() : (currentIndex + 1) % visibleKanji.length;
+  renderKanji();
+}
+
+function completeCurrentKanji(message) {
+  markMastered(false);
+  advanceAfterDone();
+  showToast(message);
 }
 
 function markMastered(withToast = true) {
@@ -382,6 +413,7 @@ function setPracticeGrade(grade) {
   visibleKanji = [...gradeData[currentGrade]];
   currentIndex = 0;
   quizQueue = [];
+  studyFlow = "grade";
   renderGrades();
   renderKanji();
 }
@@ -411,8 +443,10 @@ function filterKanji() {
   const gradeItems = gradeData[currentGrade];
   visibleKanji = query ? searchKanji(query) : [...gradeItems];
   currentIndex = 0;
+  studyFlow = query ? "search" : "grade";
   if (visibleKanji.length === 0) {
     visibleKanji = [...gradeItems];
+    studyFlow = "grade";
     showToast("見つからなかったので学年一覧に戻したよ");
   }
   renderKanji();
@@ -449,6 +483,7 @@ function startDailyQuiz() {
   quizQueue = (notMastered.length ? notMastered : gradeData[currentGrade]).slice(0, 10);
   visibleKanji = [...quizQueue];
   currentIndex = 0;
+  studyFlow = "daily";
   switchScreen("practice");
   switchMode("quiz");
   renderKanji();
@@ -459,6 +494,7 @@ function startReview() {
   const reviewItems = allKanji.filter((item) => !mastered.has(item.glyph));
   visibleKanji = reviewItems.length ? reviewItems.slice(0, 60) : [...gradeData[currentGrade]];
   currentIndex = 0;
+  studyFlow = "review";
   switchScreen("practice");
   switchMode("quiz");
   renderKanji();
@@ -468,14 +504,18 @@ function startReview() {
 function jumpRandom() {
   visibleKanji = [...allKanji];
   currentIndex = Math.floor(Math.random() * visibleKanji.length);
+  studyFlow = "random";
   switchScreen("practice");
   renderKanji();
   showToast("ランダム漢字を出したよ");
 }
 
 function nextQuizItem() {
+  clearQuizAdvanceTimer();
   if (quizQueue.length) {
     currentIndex = (currentIndex + 1) % quizQueue.length;
+  } else if (studyFlow === "random") {
+    currentIndex = nextRandomIndex();
   } else {
     changeKanji(1);
     return;
@@ -655,8 +695,8 @@ function clearCanvas() {
 
 document.querySelector("#prevKanji").addEventListener("click", () => changeKanji(-1));
 document.querySelector("#nextKanji").addEventListener("click", () => changeKanji(1));
-document.querySelector("#knowButton").addEventListener("click", () => markMastered(true));
-document.querySelector("#finishTrace").addEventListener("click", () => markMastered(true));
+document.querySelector("#knowButton").addEventListener("click", () => completeCurrentKanji("おぼえた。つぎへ進むよ"));
+document.querySelector("#finishTrace").addEventListener("click", () => completeCurrentKanji("書けた。つぎへ進むよ"));
 document.querySelector("#clearCanvas").addEventListener("click", clearCanvas);
 document.querySelector("#dailyButton").addEventListener("click", startDailyQuiz);
 document.querySelector("#reviewButton").addEventListener("click", startReview);
