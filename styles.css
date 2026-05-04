@@ -1052,7 +1052,7 @@ meter {
   .practice-panel {
     display: grid;
     grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
     gap: 6px 10px;
     padding: 10px;
     min-height: 0;
@@ -1143,29 +1143,26 @@ meter {
 
   #traceView {
     display: none;
-    grid-template-columns: minmax(170px, 0.72fr) minmax(280px, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 8px 10px;
   }
 
   #traceView.active {
-    display: grid;
+    display: contents;
   }
 
   #traceView .stroke-guide {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 3;
     align-self: end;
   }
 
   #traceView .trace-wrap {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
   }
 
   #traceView .trace-actions {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   .trace-wrap #traceCanvas,
