@@ -1020,7 +1020,7 @@ meter {
   }
 }
 
-@media (orientation: landscape) and (min-width: 900px) {
+@media (orientation: landscape) and (min-width: 700px) {
   html,
   body {
     height: 100%;
@@ -1030,27 +1030,31 @@ meter {
   .app-shell {
     width: min(1360px, 100%);
     height: 100dvh;
-    padding: max(14px, env(safe-area-inset-top)) 18px 18px 112px;
+    padding: max(8px, env(safe-area-inset-top)) 10px 10px 92px;
     overflow: hidden;
   }
 
   .topbar {
-    min-height: 50px;
+    display: none;
+  }
+
+  h1 {
+    font-size: 1.45rem;
   }
 
   .main-grid {
-    grid-template-columns: minmax(0, 1fr) 300px;
-    gap: 14px;
-    height: calc(100dvh - 92px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    height: calc(100dvh - 20px);
     min-height: 0;
   }
 
   .practice-panel {
     display: grid;
-    grid-template-columns: minmax(330px, 0.95fr) minmax(340px, 1fr);
-    grid-template-rows: auto auto auto auto minmax(0, 1fr);
-    gap: 12px 16px;
-    padding: 16px;
+    grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 6px 10px;
+    padding: 10px;
     min-height: 0;
     overflow: hidden;
   }
@@ -1061,70 +1065,139 @@ meter {
     grid-column: 1 / -1;
   }
 
+  .lesson-header {
+    display: none;
+  }
+
+  .search-box {
+    display: none;
+  }
+
+  .search-box input {
+    height: 42px;
+  }
+
+  .quick-actions {
+    display: none;
+    margin-top: 0;
+  }
+
+  .quick-actions button {
+    min-height: 42px;
+  }
+
   .kanji-stage {
     grid-column: 1;
-    grid-row: 4 / span 2;
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
-    gap: 10px;
+    grid-row: 3;
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 8px;
     margin: 0;
     min-height: 0;
   }
 
   .stage-button {
-    width: 44px;
-    height: 64px;
+    width: 38px;
+    height: 54px;
+    border-radius: 14px;
   }
 
   .kanji-card {
     min-height: 0;
     height: 100%;
-    padding: 18px;
+    padding: 8px;
+    border-radius: 20px;
   }
 
   .kanji-art {
-    font-size: clamp(5.6rem, 13vw, 9.6rem);
+    font-size: clamp(4rem, 10vw, 6.7rem);
+  }
+
+  .kanji-card h3 {
+    margin: 6px 0 2px;
+    font-size: 1.12rem;
+  }
+
+  .kanji-card p {
+    font-size: 0.84rem;
   }
 
   .mode-tabs {
     grid-column: 2;
-    grid-row: 4;
+    grid-row: 1;
+    padding: 5px;
+  }
+
+  .mode-tab {
+    min-height: 40px;
   }
 
   .mode-view {
     grid-column: 2;
-    grid-row: 5;
+    grid-row: 2 / span 2;
     min-height: 0;
     margin-top: 0;
     padding-bottom: 0;
-    overflow: auto;
+    overflow: hidden;
     padding-right: 4px;
   }
 
   .trace-wrap #traceCanvas,
   #traceCanvas {
-    height: min(31vh, 250px);
+    height: min(24vh, 142px);
   }
 
   .stroke-guide {
-    padding: 12px;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding: 8px;
+    border-radius: 16px;
   }
 
   .stroke-guide-body {
     align-items: stretch;
   }
 
+  .stroke-guide-head p {
+    margin-top: 2px;
+    font-size: 0.78rem;
+  }
+
   #strokeGuideImage {
-    width: min(128px, 16vw);
+    width: min(96px, 13vw);
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  #strokeGuideGlyph {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    border-radius: 14px;
+    font-size: 1.6rem;
+  }
+
+  .stroke-rules {
+    gap: 2px;
+    font-size: 0.78rem;
+    line-height: 1.22;
   }
 
   .quiz-options button {
-    min-height: 70px;
+    min-height: 58px;
+  }
+
+  .sentence-box {
+    min-height: 74px;
+    padding: 12px;
+  }
+
+  .primary-action,
+  .secondary-action {
+    min-height: 44px;
   }
 
   .side-panel {
-    max-height: none;
-    min-height: 0;
-    overflow: auto;
+    display: none;
   }
 
   .side-panel > section {
@@ -1150,17 +1223,17 @@ meter {
   }
 
   .bottom-nav {
-    top: max(86px, env(safe-area-inset-top));
+    top: max(10px, env(safe-area-inset-top));
     right: auto;
     bottom: auto;
     left: max(12px, env(safe-area-inset-left));
     grid-template-columns: 1fr;
-    width: 82px;
-    padding: 7px;
+    width: 72px;
+    padding: 6px;
   }
 
   .bottom-nav button {
-    min-height: 72px;
+    min-height: 62px;
   }
 
   .toast {
