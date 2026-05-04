@@ -1045,16 +1045,18 @@ meter {
   .main-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
+    align-items: stretch;
     height: calc(100dvh - 58px);
     min-height: 0;
   }
 
   .practice-panel {
     display: grid;
-    grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
-    grid-template-rows: 44px 44px minmax(0, 1fr) auto;
-    gap: 6px 10px;
-    padding: 10px;
+    grid-template-columns: minmax(300px, 0.95fr) minmax(340px, 1.05fr);
+    grid-template-rows: clamp(38px, 5.8dvh, 48px) clamp(38px, 5.8dvh, 48px) minmax(0, 1fr) clamp(44px, 6.4dvh, 56px);
+    gap: clamp(6px, 1dvh, 10px) clamp(8px, 1.4vw, 14px);
+    padding: clamp(8px, 1.3dvh, 14px);
+    height: 100%;
     min-height: 0;
     overflow: hidden;
   }
@@ -1089,7 +1091,7 @@ meter {
   }
 
   .search-box input {
-    height: 38px;
+    height: 100%;
     font-size: 0.88rem;
   }
 
@@ -1101,16 +1103,17 @@ meter {
   }
 
   .quick-actions button {
-    min-height: 38px;
+    min-height: 100%;
     border-radius: 14px;
     font-size: 0.9rem;
   }
 
   .kanji-stage {
     grid-column: 1;
-    grid-row: 3;
-    align-self: center;
-    height: clamp(300px, 46vh, 390px);
+    grid-row: 3 / span 2;
+    align-self: stretch;
+    align-items: stretch;
+    height: 100%;
     grid-template-columns: 38px minmax(0, 1fr) 38px;
     gap: 8px;
     margin: 0;
@@ -1124,18 +1127,19 @@ meter {
   .stage-button {
     width: 38px;
     height: 54px;
+    align-self: center;
     border-radius: 14px;
   }
 
   .kanji-card {
     min-height: 0;
     height: 100%;
-    padding: 8px;
+    padding: clamp(8px, 1.4dvh, 14px);
     border-radius: 20px;
   }
 
   .kanji-art {
-    font-size: clamp(4rem, 10vw, 6.7rem);
+    font-size: clamp(5.2rem, min(13vw, 28dvh), 9.8rem);
   }
 
   .kanji-card h3 {
@@ -1150,17 +1154,17 @@ meter {
   .mode-tabs {
     grid-column: 2;
     grid-row: 1;
-    height: 44px;
+    height: 100%;
     padding: 5px;
   }
 
   .mode-tab {
-    min-height: 40px;
+    min-height: 100%;
   }
 
   .mode-view {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 3 / span 2;
     height: 100%;
     min-height: 0;
     margin-top: 0;
@@ -1182,6 +1186,7 @@ meter {
     grid-column: 1;
     grid-row: 3 / span 2;
     align-self: stretch;
+    height: 100%;
     max-height: none;
     overflow: hidden;
   }
@@ -1198,6 +1203,7 @@ meter {
   #traceView .trace-wrap {
     grid-column: 2;
     grid-row: 3;
+    height: 100%;
   }
 
   #traceView .trace-actions {
@@ -1234,7 +1240,7 @@ meter {
   }
 
   #strokeGuideImage {
-    width: min(230px, 26vw);
+    width: min(320px, 32vw, 42dvh);
     padding: 6px;
     border-radius: 14px;
   }
@@ -1249,7 +1255,7 @@ meter {
 
   .stroke-rules {
     gap: 6px;
-    font-size: clamp(0.82rem, 1.25vw, 1rem);
+    font-size: clamp(0.9rem, min(1.35vw, 2.2dvh), 1.1rem);
     line-height: 1.28;
   }
 
@@ -1359,4 +1365,3 @@ meter {
     grid-template-columns: 1fr;
   }
 }
-    height: 100%;
