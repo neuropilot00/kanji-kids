@@ -348,6 +348,7 @@ h2 {
 .mode-view {
   display: none;
   margin-top: 16px;
+  padding-bottom: 92px;
 }
 
 .mode-view.active {
@@ -487,8 +488,9 @@ h2 {
   place-items: center;
   color: rgba(47, 111, 94, 0.13);
   font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-  font-size: min(48vw, 15rem);
+  font-size: clamp(6rem, min(34vw, 34vh), 13rem);
   font-weight: 800;
+  line-height: 1;
   pointer-events: none;
 }
 
@@ -1019,25 +1021,38 @@ meter {
 }
 
 @media (orientation: landscape) and (min-width: 900px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   .app-shell {
     width: min(1360px, 100%);
+    height: 100dvh;
     padding: max(14px, env(safe-area-inset-top)) 18px 18px 112px;
+    overflow: hidden;
   }
 
   .topbar {
-    min-height: 56px;
+    min-height: 50px;
   }
 
   .main-grid {
     grid-template-columns: minmax(0, 1fr) 300px;
     gap: 14px;
+    height: calc(100dvh - 92px);
+    min-height: 0;
   }
 
   .practice-panel {
     display: grid;
     grid-template-columns: minmax(330px, 0.95fr) minmax(340px, 1fr);
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
     gap: 12px 16px;
     padding: 16px;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .lesson-header,
@@ -1048,10 +1063,11 @@ meter {
 
   .kanji-stage {
     grid-column: 1;
-    grid-row: 4 / span 3;
+    grid-row: 4 / span 2;
     grid-template-columns: 44px minmax(0, 1fr) 44px;
     gap: 10px;
     margin: 0;
+    min-height: 0;
   }
 
   .stage-button {
@@ -1060,7 +1076,8 @@ meter {
   }
 
   .kanji-card {
-    min-height: min(48vh, 330px);
+    min-height: 0;
+    height: 100%;
     padding: 18px;
   }
 
@@ -1068,17 +1085,19 @@ meter {
     font-size: clamp(5.6rem, 13vw, 9.6rem);
   }
 
-  .mode-tabs,
+  .mode-tabs {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
   .mode-view {
     grid-column: 2;
-  }
-
-  .mode-tabs {
-    align-self: start;
-  }
-
-  .mode-view {
+    grid-row: 5;
+    min-height: 0;
     margin-top: 0;
+    padding-bottom: 0;
+    overflow: auto;
+    padding-right: 4px;
   }
 
   .trace-wrap #traceCanvas,
@@ -1103,7 +1122,8 @@ meter {
   }
 
   .side-panel {
-    max-height: calc(100vh - 92px);
+    max-height: none;
+    min-height: 0;
     overflow: auto;
   }
 

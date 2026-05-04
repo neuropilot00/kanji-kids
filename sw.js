@@ -1,4 +1,4 @@
-const CACHE_NAME = "kanji-kids-v6";
+const CACHE_NAME = "kanji-kids-v7";
 const ASSETS = ["./", "./index.html", "./styles.css", "./kanji-data.js", "./app.js", "./manifest.json"];
 
 self.addEventListener("install", (event) => {

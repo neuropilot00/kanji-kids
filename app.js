@@ -255,8 +255,7 @@ function renderKanji() {
   elements.meaning.textContent = item.readings[0] || item.glyph;
   elements.reading.textContent = readingText(item);
   elements.sentence.textContent = makeStudyLine(item);
-  elements.ghost.innerHTML = "";
-  appendRuby(elements.ghost, item);
+  elements.ghost.textContent = item.glyph;
   renderStrokeGuide(item);
   elements.mastered.textContent = mastered.size;
   elements.currentNumber.textContent = globalIndex;
