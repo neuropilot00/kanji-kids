@@ -1052,7 +1052,7 @@ meter {
   .practice-panel {
     display: grid;
     grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
-    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
     gap: 6px 10px;
     padding: 10px;
     min-height: 0;
@@ -1088,7 +1088,7 @@ meter {
 
   .kanji-stage {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 2;
     grid-template-columns: 38px minmax(0, 1fr) 38px;
     gap: 8px;
     margin: 0;
@@ -1133,7 +1133,7 @@ meter {
 
   .mode-view {
     grid-column: 2;
-    grid-row: 2 / span 2;
+    grid-row: 2;
     min-height: 0;
     margin-top: 0;
     padding-bottom: 0;
@@ -1141,19 +1141,48 @@ meter {
     padding-right: 4px;
   }
 
+  #traceView {
+    display: none;
+    grid-template-columns: minmax(170px, 0.72fr) minmax(280px, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px 10px;
+  }
+
+  #traceView.active {
+    display: grid;
+  }
+
+  #traceView .stroke-guide {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  #traceView .trace-wrap {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #traceView .trace-actions {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
   .trace-wrap #traceCanvas,
   #traceCanvas {
-    height: min(24vh, 142px);
+    height: min(47vh, 318px);
   }
 
   .stroke-guide {
     gap: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 0;
     padding: 8px;
     border-radius: 16px;
   }
 
   .stroke-guide-body {
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: stretch;
   }
 
@@ -1163,7 +1192,7 @@ meter {
   }
 
   #strokeGuideImage {
-    width: min(96px, 13vw);
+    width: min(150px, 18vw);
     padding: 6px;
     border-radius: 14px;
   }
@@ -1178,7 +1207,7 @@ meter {
 
   .stroke-rules {
     gap: 2px;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     line-height: 1.22;
   }
 
