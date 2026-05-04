@@ -1,10 +1,10 @@
-const CACHE_NAME = "kanji-kids-v13";
+const CACHE_NAME = "kanji-kids-v14";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=13",
-  "./kanji-data.js?v=13",
-  "./app.js?v=13",
+  "./styles.css?v=14",
+  "./kanji-data.js?v=14",
+  "./app.js?v=14",
   "./manifest.json"
 ];
 

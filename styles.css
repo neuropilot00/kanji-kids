@@ -1052,7 +1052,7 @@ meter {
 
   .practice-panel {
     display: grid;
-    grid-template-columns: minmax(300px, 0.95fr) minmax(340px, 1.05fr);
+    grid-template-columns: minmax(390px, 1.08fr) minmax(360px, 0.92fr);
     grid-template-rows: clamp(38px, 5.8dvh, 48px) clamp(38px, 5.8dvh, 48px) minmax(0, 1fr) clamp(44px, 6.4dvh, 56px);
     gap: clamp(6px, 1dvh, 10px) clamp(8px, 1.4vw, 14px);
     padding: clamp(8px, 1.3dvh, 14px);
@@ -1092,7 +1092,7 @@ meter {
 
   .search-box input {
     height: 100%;
-    font-size: 0.88rem;
+    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
   }
 
   .quick-actions {
@@ -1105,7 +1105,7 @@ meter {
   .quick-actions button {
     min-height: 100%;
     border-radius: 14px;
-    font-size: 0.9rem;
+    font-size: clamp(0.98rem, 1.4vw, 1.15rem);
   }
 
   .kanji-stage {
@@ -1139,16 +1139,16 @@ meter {
   }
 
   .kanji-art {
-    font-size: clamp(5.2rem, min(13vw, 28dvh), 9.8rem);
+    font-size: clamp(6.2rem, min(15.5vw, 30dvh), 11rem);
   }
 
   .kanji-card h3 {
     margin: 6px 0 2px;
-    font-size: 1.12rem;
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
   }
 
   .kanji-card p {
-    font-size: 0.84rem;
+    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
   }
 
   .mode-tabs {
@@ -1160,6 +1160,7 @@ meter {
 
   .mode-tab {
     min-height: 100%;
+    font-size: clamp(1rem, 1.45vw, 1.2rem);
   }
 
   .mode-view {
@@ -1236,26 +1237,26 @@ meter {
 
   .stroke-guide-head p {
     margin-top: 2px;
-    font-size: 0.78rem;
+    font-size: clamp(0.9rem, 1.28vw, 1.05rem);
   }
 
   #strokeGuideImage {
-    width: min(320px, 32vw, 42dvh);
+    width: min(360px, 36vw, 44dvh);
     padding: 6px;
     border-radius: 14px;
   }
 
   #strokeGuideGlyph {
-    width: 44px;
-    height: 44px;
-    flex-basis: 44px;
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
     border-radius: 14px;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
 
   .stroke-rules {
     gap: 6px;
-    font-size: clamp(0.9rem, min(1.35vw, 2.2dvh), 1.1rem);
+    font-size: clamp(1rem, min(1.55vw, 2.4dvh), 1.22rem);
     line-height: 1.28;
   }
 
@@ -1265,7 +1266,22 @@ meter {
 
   .sentence-box {
     min-height: 74px;
-    padding: 12px;
+    padding: clamp(14px, 2dvh, 18px);
+  }
+
+  .sentence-label {
+    font-size: clamp(0.84rem, 1.12vw, 0.96rem);
+  }
+
+  .sentence-box p,
+  .quiz-question {
+    font-size: clamp(1.22rem, 1.85vw, 1.55rem);
+    line-height: 1.42;
+  }
+
+  .primary-action,
+  .secondary-action {
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
   }
 
   .primary-action,
