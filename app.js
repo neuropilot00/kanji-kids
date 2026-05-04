@@ -114,6 +114,9 @@ const elements = {
   quizQuestion: document.querySelector("#quizQuestion"),
   quizOptions: document.querySelector("#quizOptions"),
   nextQuiz: document.querySelector("#nextQuiz"),
+  kanjiQuizMode: document.querySelector("#kanjiQuizMode"),
+  yomiQuizMode: document.querySelector("#yomiQuizMode"),
+  quizScore: document.querySelector("#quizScore"),
   gradeGrid: document.querySelector("#gradeGrid"),
   gradeSummary: document.querySelector("#gradeSummary"),
   kanjiList: document.querySelector("#kanjiList"),
@@ -122,6 +125,9 @@ const elements = {
   currentNumber: document.querySelector("#currentNumber"),
   totalNumber: document.querySelector("#totalNumber"),
   canvas: document.querySelector("#traceCanvas"),
+  strokeGuideGlyph: document.querySelector("#strokeGuideGlyph"),
+  strokeGuideImage: document.querySelector("#strokeGuideImage"),
+  strokeGuideStatus: document.querySelector("#strokeGuideStatus"),
   menuButton: document.querySelector("#menuButton"),
   profileButton: document.querySelector("#profileButton"),
   drawer: document.querySelector("#drawer"),
@@ -148,6 +154,9 @@ let visibleKanji = [...gradeData[currentGrade]];
 let bookVisible = [...gradeData[bookGrade]];
 let currentIndex = 0;
 let quizQueue = [];
+let quizMode = "kanji";
+let quizCorrect = 0;
+let quizAnswered = 0;
 let mastered = new Set(JSON.parse(localStorage.getItem("kanji-mastered") || "[]"));
 let drawing = false;
 let toastTimer = 0;
@@ -222,6 +231,11 @@ function appendRuby(parent, item) {
   parent.append(ruby);
 }
 
+function kanjiSvgUrl(glyph) {
+  const code = glyph.codePointAt(0).toString(16).padStart(5, "0");
+  return `https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/${code}.svg`;
+}
+
 function showToast(message) {
   if (!profile.praise && message.includes("でき")) return;
   clearTimeout(toastTimer);
@@ -243,6 +257,7 @@ function renderKanji() {
   elements.sentence.textContent = makeStudyLine(item);
   elements.ghost.innerHTML = "";
   appendRuby(elements.ghost, item);
+  renderStrokeGuide(item);
   elements.mastered.textContent = mastered.size;
   elements.currentNumber.textContent = globalIndex;
   elements.totalNumber.textContent = `/${allKanji.length}`;
@@ -257,39 +272,81 @@ function makeStudyLine(item) {
   return `読み: ${readingText(item)}　例: 「${item.glyph}」を声に出して読んでみよう。`;
 }
 
+function renderStrokeGuide(item) {
+  elements.strokeGuideGlyph.textContent = item.glyph;
+  elements.strokeGuideImage.src = kanjiSvgUrl(item.glyph);
+  elements.strokeGuideImage.hidden = false;
+  elements.strokeGuideStatus.textContent = "お手本を見てから、なぞろう。";
+  annotateUiKanji(elements.strokeGuideStatus);
+}
+
 function renderQuiz() {
   const answer = currentKanji();
-  const pool = allKanji.filter((item) => item.glyph !== answer.glyph);
-  const options = pool.sort(() => Math.random() - 0.5).slice(0, 3);
-
-  options.push(answer);
-  options.sort(() => Math.random() - 0.5);
-  elements.quizQuestion.textContent = `「${answer.readings[0]}」の漢字はどれ？`;
+  elements.quizScore.textContent = `${quizCorrect}/${quizAnswered}`;
+  elements.kanjiQuizMode.classList.toggle("active", quizMode === "kanji");
+  elements.yomiQuizMode.classList.toggle("active", quizMode === "yomi");
   elements.quizOptions.innerHTML = "";
   elements.nextQuiz.classList.remove("active");
 
-  options.forEach((item) => {
+  if (quizMode === "kanji") {
+    const pool = allKanji.filter((item) => item.glyph !== answer.glyph);
+    const options = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+    options.push(answer);
+    options.sort(() => Math.random() - 0.5);
+    elements.quizQuestion.textContent = `「${answer.readings[0]}」の漢字はどれ？`;
+
+    options.forEach((item) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.answer = item.glyph;
+      appendRuby(button, item);
+      button.addEventListener("click", () => answerQuiz(button, item.glyph === answer.glyph, answer.glyph));
+      elements.quizOptions.append(button);
+    });
+    return;
+  }
+
+  const correctYomi = primaryYomi(answer);
+  const yomiOptions = allKanji
+    .filter((item) => item.glyph !== answer.glyph)
+    .map((item) => primaryYomi(item))
+    .filter((reading) => reading !== correctYomi)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+  yomiOptions.push(correctYomi);
+  yomiOptions.sort(() => Math.random() - 0.5);
+  elements.quizQuestion.innerHTML = "";
+  elements.quizQuestion.append("この");
+  appendRuby(elements.quizQuestion, answer);
+  elements.quizQuestion.append("の読みはどれ？");
+  annotateUiKanji(elements.quizQuestion);
+
+  yomiOptions.forEach((reading) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.dataset.glyph = item.glyph;
-    appendRuby(button, item);
-    button.addEventListener("click", () => answerQuiz(button, item.glyph === answer.glyph));
+    button.className = "yomi-option";
+    button.dataset.answer = reading;
+    button.textContent = reading;
+    button.addEventListener("click", () => answerQuiz(button, reading === correctYomi, correctYomi));
     elements.quizOptions.append(button);
   });
 }
 
-function answerQuiz(button, isCorrect) {
+function answerQuiz(button, isCorrect, correctAnswer) {
   [...elements.quizOptions.children].forEach((option) => {
     option.disabled = true;
-    if (option.dataset.glyph === currentKanji().glyph) option.classList.add("correct");
+    if (option.dataset.answer === correctAnswer) option.classList.add("correct");
   });
   button.classList.add(isCorrect ? "correct" : "wrong");
+  quizAnswered += 1;
   if (isCorrect) {
+    quizCorrect += 1;
     markMastered(false);
     showToast("できた！つぎの漢字へ進もう");
   } else {
     showToast("もう一度あとで復習しよう");
   }
+  elements.quizScore.textContent = `${quizCorrect}/${quizAnswered}`;
   elements.nextQuiz.classList.add("active");
 }
 
@@ -605,6 +662,14 @@ document.querySelector("#dailyButton").addEventListener("click", startDailyQuiz)
 document.querySelector("#reviewButton").addEventListener("click", startReview);
 document.querySelector("#randomButton").addEventListener("click", jumpRandom);
 elements.nextQuiz.addEventListener("click", nextQuizItem);
+elements.kanjiQuizMode.addEventListener("click", () => {
+  quizMode = "kanji";
+  renderQuiz();
+});
+elements.yomiQuizMode.addEventListener("click", () => {
+  quizMode = "yomi";
+  renderQuiz();
+});
 elements.search.addEventListener("input", filterKanji);
 elements.bookSearch.addEventListener("input", renderBook);
 elements.menuButton.addEventListener("click", openDrawer);
@@ -638,6 +703,11 @@ window.addEventListener("mouseup", stopDrawing);
 elements.canvas.addEventListener("touchstart", startDrawing, { passive: false });
 elements.canvas.addEventListener("touchmove", draw, { passive: false });
 window.addEventListener("touchend", stopDrawing);
+elements.strokeGuideImage.addEventListener("error", () => {
+  elements.strokeGuideImage.hidden = true;
+  elements.strokeGuideStatus.textContent = "お手本がないので、きほんの書き順でなぞろう。";
+  annotateUiKanji(elements.strokeGuideStatus);
+});
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});

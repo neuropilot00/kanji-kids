@@ -396,6 +396,69 @@ h2 {
   background: var(--panel);
 }
 
+.stroke-guide {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fbfdfb;
+}
+
+.stroke-guide-head,
+.stroke-guide-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.stroke-guide-head p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+#strokeGuideGlyph {
+  display: grid;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--mint);
+  color: var(--leaf);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+#strokeGuideImage {
+  width: min(160px, 38vw);
+  aspect-ratio: 1;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, transparent 49.5%, #d8e5d8 50%, transparent 50.5%),
+    linear-gradient(transparent 49.5%, #d8e5d8 50%, transparent 50.5%),
+    #fff;
+  object-fit: contain;
+}
+
+.stroke-rules {
+  display: grid;
+  flex: 1;
+  gap: 7px;
+  margin: 0;
+  padding-left: 1.4rem;
+  color: var(--ink);
+  font-weight: 900;
+}
+
 .trace-wrap {
   position: relative;
   overflow: hidden;
@@ -441,6 +504,36 @@ h2 {
   font-weight: 900;
 }
 
+.quiz-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-tools button,
+.quiz-tools span {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fbfdfb;
+  color: var(--leaf);
+  font-weight: 900;
+}
+
+.quiz-tools button.active {
+  border-color: var(--leaf);
+  background: var(--mint);
+}
+
+.quiz-tools span {
+  display: grid;
+  min-width: 64px;
+  place-items: center;
+  color: var(--ink);
+}
+
 .quiz-options {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -455,6 +548,11 @@ h2 {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
   font-size: 2.5rem;
   font-weight: 900;
+}
+
+.quiz-options button.yomi-option {
+  font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  font-size: 1.25rem;
 }
 
 .quiz-options button.correct {
@@ -948,6 +1046,9 @@ meter {
   }
 
   .quick-actions,
+  .quiz-tools,
+  .stroke-guide-head,
+  .stroke-guide-body,
   .book-controls,
   .plan-grid,
   .record-grid,

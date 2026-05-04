@@ -74,6 +74,23 @@
           </div>
 
           <div class="mode-view" id="traceView">
+            <div class="stroke-guide">
+              <div class="stroke-guide-head">
+                <div>
+                  <span class="sentence-label"><ruby>書<rt>か</rt></ruby>き<ruby>順<rt>じゅん</rt></ruby></span>
+                  <p id="strokeGuideStatus">お<ruby>手本<rt>てほん</rt></ruby>を<ruby>見<rt>み</rt></ruby>てから、なぞろう。</p>
+                </div>
+                <span id="strokeGuideGlyph">六</span>
+              </div>
+              <div class="stroke-guide-body">
+                <img id="strokeGuideImage" alt="書き順のお手本" />
+                <ol class="stroke-rules">
+                  <li><ruby>上<rt>うえ</rt></ruby>から<ruby>下<rt>した</rt></ruby>へ</li>
+                  <li><ruby>左<rt>ひだり</rt></ruby>から<ruby>右<rt>みぎ</rt></ruby>へ</li>
+                  <li><ruby>横<rt>よこ</rt></ruby>から<ruby>縦<rt>たて</rt></ruby>へ</li>
+                </ol>
+              </div>
+            </div>
             <div class="trace-wrap">
               <canvas id="traceCanvas" width="520" height="360" aria-label="漢字を書く練習"></canvas>
               <div class="trace-ghost" id="traceGhost">森</div>
@@ -85,6 +102,11 @@
           </div>
 
           <div class="mode-view" id="quizView">
+            <div class="quiz-tools" aria-label="クイズの種類">
+              <button class="active" id="kanjiQuizMode" type="button"><ruby>読<rt>よ</rt></ruby>み→<ruby>漢字<rt>かんじ</rt></ruby></button>
+              <button id="yomiQuizMode" type="button"><ruby>漢字<rt>かんじ</rt></ruby>→<ruby>読<rt>よ</rt></ruby>み</button>
+              <span id="quizScore">0/0</span>
+            </div>
             <p class="quiz-question" id="quizQuestion">「もり」と読む漢字はどれ？</p>
             <div class="quiz-options" id="quizOptions"></div>
             <button class="primary-action quiz-next" id="nextQuiz" type="button">つぎへ</button>
